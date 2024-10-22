@@ -60,6 +60,49 @@ def quick_sort(arr):
         # Рекурсивно сортируем левую и правую часть, затем объединяем их
         return quick_sort(left) + middle + quick_sort(right)
 
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    # Разделяем массив на две половины
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+
+    # Рекурсивно сортируем каждую половину
+    left_sorted = merge_sort(left_half)
+    right_sorted = merge_sort(right_half)
+
+    # Сливаем отсортированные половины
+    return merge(left_sorted, right_sorted)
+
+
+def merge(left, right):
+    sorted_array = []
+    left_index, right_index = 0, 0
+
+    # Сливаем массивы, пока есть элементы в обоих
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] <= right[right_index]:
+            sorted_array.append(left[left_index])
+            left_index += 1
+        else:
+            sorted_array.append(right[right_index])
+            right_index += 1
+
+    # Если остались элементы в левой половине, добавляем их
+    while left_index < len(left):
+        sorted_array.append(left[left_index])
+        left_index += 1
+
+    # Если остались элементы в правой половине, добавляем их
+    while right_index < len(right):
+        sorted_array.append(right[right_index])
+        right_index += 1
+
+    return sorted_array
+
+
 
 user_input = input("Введите элементы списка, разделенные пробелом: ")
 
@@ -69,13 +112,10 @@ int_list = [int(num) for num in user_list]
 
 user_list_bubble = int_list
 start_time = time.perf_counter()
-
 bubble_sort(user_list_bubble)
 end_time = time.perf_counter()
 print(f"Пузырьковый метод сортировки", user_list_bubble)
-
 execution_time_microseconds = (end_time - start_time) * 1_000_000
-
 print(f"Время выполнения функции: {execution_time_microseconds:.2f} микросекунд")
 
 user_list_selection = int_list
@@ -96,5 +136,17 @@ execution_time_microseconds = (end_time - start_time) * 1_000_000
 print(f"Время выполнения функции: {execution_time_microseconds:.2f} микросекунд")
 
 user_list_quick = int_list
+start_time = time.perf_counter()
 quick_sort(user_list_quick)
+end_time = time.perf_counter()
 print(f"Метод сортировки вставками", user_list_quick)
+execution_time_microseconds = (end_time - start_time) * 1_000_000
+print(f"Время выполнения функции: {execution_time_microseconds:.2f} микросекунд")
+
+user_list_merge = int_list
+start_time = time.perf_counter()
+merge_sort(user_list_merge)
+end_time = time.perf_counter()
+print(f"Метод сортировки слиянием", user_list_merge)
+execution_time_microseconds = (end_time - start_time) * 1_000_000
+print(f"Время выполнения функции: {execution_time_microseconds:.2f} микросекунд")
