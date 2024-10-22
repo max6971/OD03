@@ -139,7 +139,7 @@ user_list_quick = int_list
 start_time = time.perf_counter()
 quick_sort(user_list_quick)
 end_time = time.perf_counter()
-print(f"Метод сортировки вставками", user_list_quick)
+print(f"Метод сортировки Быстрая сортировка", user_list_quick)
 execution_time_microseconds = (end_time - start_time) * 1_000_000
 print(f"Время выполнения функции: {execution_time_microseconds:.2f} микросекунд")
 
